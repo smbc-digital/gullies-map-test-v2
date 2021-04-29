@@ -3,7 +3,8 @@ import { getTargetUrl } from '../Helpers'
 const gulliesActivePopup = feature => {
   //const varName = getTargetUrl()
 
-  return `<div class="item"><p class="title">Location </p><p class="info">${feature.properties.street}</p></div><hr/>
+  return `<div class="item"><p class="title">Location </p><p class="info">${feature.properties.street}</p></div>
+  <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
   <input id="siteCode" name="siteCode" type="hidden" value="${feature.properties.site_code}">
   <input id="assetId" name="assetId" type="hidden" value="${feature.properties.central_asset_id}">
   <input id="easting" name="easting" type="hidden" value="${feature.properties.easting}">
@@ -22,7 +23,8 @@ const gulliesFaultPopup = feature => {
       <div class="smbc-panel__body smbc-!-font-color-white">
         A flood has already been reported here
       </div>
-    </div><hr/>
+    </div>
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
     <a class="govuk-button govuk-!-margin-bottom-0 govuk-!-margin-top-4" href="${varName}/track-a-report/details/${feature.properties.ext_system_ref}">View this report</a>
     <a class="govuk-button govuk-!-margin-bottom-0 govuk-!-margin-top-4" href="https://www.stockport.gov.uk/">Go to the homepage</a>
     </div>`
