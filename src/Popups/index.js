@@ -27,7 +27,7 @@ const gulliesFaultPopup = feature => {
     </div>
   </div>
   <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
-  <a class="govuk-button govuk-button--secondary govuk-!-margin-bottom-0 smbc-!-width-100" href="${varName}/track-a-report/details/${feature.properties.ext_system_ref}">View this report</a>
+  <a class="govuk-button govuk-button--secondary govuk-!-margin-bottom-0 smbc-!-width-100 smbc-!-font-color-black" href="${varName}/track-a-report/details/${feature.properties.ext_system_ref}">View this report</a>
   <a class="govuk-button govuk-!-margin-bottom-0 govuk-!-margin-top-4 smbc-!-width-100" href="https://www.stockport.gov.uk/">Go to the homepage</a>
 </div>`
 }
