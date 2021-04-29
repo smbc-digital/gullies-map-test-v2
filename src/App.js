@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react'
 import Leaflet from 'leaflet'
 import { fetchWithTimeout } from './Helpers'
-import { reportFloodPopup } from './Popups'
+import { gulliesPopup } from './Popups'
 import Config from './Configuration.js'
 import { osOpen } from './Tiles'
 import {
@@ -164,7 +164,7 @@ function App() {
       if (polygonsFoundInMap.length > 0)
         Leaflet.popup()
           .setLatLng(event.latlng)
-          .setContent(await reportFloodPopup(event.latlng))
+          .setContent(await gulliesPopup(event.latlng))
           .openOn(mapRef.current)
     }
   }
@@ -178,7 +178,7 @@ function App() {
         mapRef.current.setView([data.lat, data.lng], 18)
         Leaflet.popup()
           .setLatLng(lntLng)
-          .setContent(await reportFloodPopup(lntLng))
+          .setContent(await gulliesPopup(lntLng))
           .openOn(mapRef.current)
       }
     }

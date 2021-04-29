@@ -1,32 +1,50 @@
-import { GetUserFriendlyTerminology, fetchWithTimeout } from '../Helpers'
+import { getTargetUrl } from '../Helpers'
 
-const floodingPopup = (feature, layer) => {
+const gulliesActivePopup = feature => {
+  //const varName = getTargetUrl()
 
-  layer.bindPopup(
-    `<div>
-      <p class="smbc-body smbc-!-font-color-white">Type of report: ${GetUserFriendlyTerminology(feature.properties.subject_code)}</p>
-      <div class="govuk-panel smbc-panel--error govuk-!-padding-1">
-        <div class="smbc-panel__body smbc-!-font-color-white">
-        A flood has already been reported here
-        </div>
-      </div>
-    </div>`)
+  return `<div class="item"><p class="title">Location </p><p class="info">${feature.properties.street}</p></div><hr/>
+  <input id="siteCode" name="siteCode" type="hidden" value="${feature.properties.site_code}">
+  <input id="assetId" name="assetId" type="hidden" value="${feature.properties.central_asset_id}">
+  <input id="easting" name="easting" type="hidden" value="${feature.properties.easting}">
+  <input id="northing" name="northing" type="hidden" value="${feature.properties.northing}">
+  <button class="govuk-button govuk-!-margin-bottom-0 govuk-!-margin-top-4" data-module="govuk-button">
+    Report this gully
+  </button>`
 }
 
-const reportFloodPopup = async (latlng) => {
+const gulliesFaultPopup = feature => {
+  const varName = getTargetUrl()
 
-  var response = await fetchWithTimeout(`https://spatial.stockport.gov.uk/geoserver/wfs?&service=wfs&version=1.0.0&request=getfeature&typename=address:vw_get_street_names&viewparams=long:${latlng.lng};lat:${latlng.lat};&outputformat=json&nearest_street`)
-  const body = await response.json()
+  return `<div>
+  <div class="item"><p class="title">Location </p><p class="info">${feature.properties.street}</p></div>
+    <div class="govuk-panel smbc-panel--error govuk-!-padding-1">
+      <div class="smbc-panel__body smbc-!-font-color-white">
+        A flood has already been reported here
+      </div>
+    </div><hr/>
+    <a class="govuk-button govuk-!-margin-bottom-0 govuk-!-margin-top-4" href="${varName}/track-a-report/details/${feature.properties.ext_system_ref}">View this report</a>
+    <a class="govuk-button govuk-!-margin-bottom-0 govuk-!-margin-top-4" href="https://www.stockport.gov.uk/">Go to the homepage</a>
+    </div>`
+}
 
-  return `<input id="lat" name="lat" type="hidden" value="${latlng.lat}">
-          <input id="lng" name="lng" type="hidden" value="${latlng.lng}">
-          <input id="street" name="street" type="hidden" value="${body.features[0].properties.nearest_street}">
-          <button class="govuk-button govuk-!-margin-bottom-0 govuk-!-margin-top-4" data-module="govuk-button">
-            Report a flood
-          </button>`
+const gulliesPopup = (feature, layer) => {
+  var content = getcontent_gullies(feature)
+
+  layer.bindPopup(content)
+}
+
+const getcontent_gullies = feature => {
+  switch  (feature.properties.raise_new_job) {  
+    case 1:
+        return gulliesActivePopup(feature)
+    case 2:
+        return gulliesMaintenancePopup(feature)
+    case 3:
+        return gulliesFaultPopup(feature)    
+  }
 }
 
 export {
-  floodingPopup,
-  reportFloodPopup
+  gulliesPopup
 }
