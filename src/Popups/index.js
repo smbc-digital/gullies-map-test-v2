@@ -38,8 +38,8 @@ const getcontent_gullies = feature => {
   switch  (feature.properties.raise_new_job) {  
     case 1:
         return gulliesActivePopup(feature)
-    case 2:
-        return gulliesMaintenancePopup(feature)
+    //case 2:
+        //return gulliesMaintenancePopup(feature)
     case 3:
         return gulliesFaultPopup(feature)    
   }
