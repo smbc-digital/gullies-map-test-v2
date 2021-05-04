@@ -62,15 +62,6 @@ let config = {
 }
 
 module.exports = (env, argv) => {
-    config.plugins.push(
-        new CompressionPlugin({
-            filename: argv.mode === 'development' ? '[path].gz' :'[path]',
-            test: /\.js$|\.css$|\.html$/,
-            algorithm: 'gzip',
-            deleteOriginalAssets: false
-        })
-    )
-
     if (argv.mode === 'development') {
         config.output.publicPath = '/'
         config.devtool = 'source-map'
